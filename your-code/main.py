@@ -103,53 +103,104 @@ In the end, f should have only the following values: 0, 25, 50, 75, and 100.
 Note: you don't have to use Numpy in this question.
 """
 
+# METHOD 1: # I feel like it should work but it doesn't. SEE OTHER METHODS BELOW
+# 1) accessing values at last level in 'd'
+#       2) check condition 
+#               3) access last level in 'f'
+#                       4) Re-define value at this level
+
+f = np.empty((2,3,5), dtype=int) 
+
+# 1) Access values to the last level of 'd': values in d[0][0]
+for d_1 in d:
+        for d_2 in d_1:
+                for value_d in d_2: 
+                        # 2) Check condition based on value in 'd' (value_d)
+                        if value_d > d_min and value_d < d_mean:
+                                # 3) Access value at the last level of 'f'    
+                                for f_1 in f: 
+                                        for f_2 in f_1:
+                                                for value_f in f_2:
+                                                        # 4) Re-defining the value at this level of 'f' (value_f)
+                                                        value_f = 25 
+                                                        
+                        elif value_d > d_mean and value_d < d_max:
+                                for f_1 in f: 
+                                        for f_2 in f_1:
+                                                for value_f in f_2:
+                                                        value_f = 75
+                                                        
+                        elif value_d == d_mean:
+                                for f_1 in f: 
+                                        for f_2 in f_1:
+                                                for value_f in f_2:
+                                                        value_f = 50
+                                                        
+                        elif value_d == d_min:
+                                for f_1 in f: 
+                                        for f_2 in f_1:
+                                                for value_f in f_2:
+                                                        value_f = 0
+                        elif value_d == d_max:
+                                for f_1 in f: 
+                                        for f_2 in f_1:
+                                                for value_f in f_2:
+                                                        value_f = 100   
+
+print("METHOD 1: ", f)
 
 
-# DOESNT WORK FOR NOW
-# for element in range(len(d)):
-#         for element_2 in range(len(element)):
-#                 for value in range(len(element_2)):
 
-#                         if value > d_min and value < d_mean:
-#                                 for i in range(len(f)):
-#                                         for x in range(len(i)):
-#                                                 for n in range(len(x)):
-#                                                         n = 25
-#                         elif value > d_mean and value < d_max:
-#                                 for i in range(len(f)):
-#                                         for x in range(len(i)):
-#                                                 for n in range(len(x)):
-#                                                         n = 75
-#                         elif value == d_mean:
-#                                 for i in range(len(f)):
-#                                         for x in range(len(i)):
-#                                                 for n in range(len(x)):
-#                                                         n = 50
-#                         elif value == d_min:
-#                                 for i in range(len(f)):
-#                                         for x in range(len(i)):
-#                                                 for n in range(len(x)):
-#                                                         n = 0
-#                         elif value == d_max:
-#                                 for i in range(len(f)):
-#                                         for x in range(len(i)):
-#                                                 for n in range(len(x)):
-#                                                         n = 100
+# METHOD 2: appending to list -> transform list to array -> reshape array:
+# This method doesn't use the empty list 'f'
 
-# print(f)
-# print(f[0][0])
+a_list = [] # List to store the newly defined values
 
-print(d)
-print("")
-print(d[0][0])
+for element in d:
+    for e in element:
+        for n in e: # Accessing the bottom level
+            if n > d_min and n < d_mean:
+                n = 25 # Assign a 'n' value and append to a_list
+                a_list.append(n)
+            elif n > d_mean and n < d_max:
+                n = 75
+                a_list.append(n)
+            elif n == d_mean:
+                n = 50
+                a_list.append(n)
+            elif n == d_min:
+                n = 0
+                a_list.append(n)
+            elif n == d_max:
+                n = 100
+                a_list.append(n)
+                
+#print("list with appended n:",a_list) # numbers have been appended in order in a flattened list -> transform into 2x3x5 array
+#print("len of list:",len(a_list)) # 30, as in original array
+
+my_array = np.array(a_list) # transforming list to array
+#print("My array is:", my_array)
+
+my_reshaped_array = np.reshape(my_array,(2,3,5)) # reshaping array to 2x3x5 (like 'f') 
+print("METHOD 2:", my_reshaped_array)
 
 
-for d_1 in range(len(d)):
-        for d_2 in range(len(d[0])):
-                for d_3 in range(len(d[0][0])):
 
-                        if d[d_1][d_2][d_3] > d_min and d[d_1][d_2][d_3] < d_mean:
-                                f[d_1][d_2][d_3] = 25
+# print(d)
+# print("")
+# print(d[0][0])
+
+
+# METHOD 3 accessing values through index
+
+f = np.empty((2,3,5), dtype=int) 
+
+for d_1 in range(len(d)): # len(d) is 2
+        for d_2 in range(len(d[0])): # len(d[0]) is 3
+                for d_3 in range(len(d[0][0])): # len(d[0][0]) is 5 (last level)
+
+                        if d[d_1][d_2][d_3] > d_min and d[d_1][d_2][d_3] < d_mean: # d[d_1][d_2][d_3] = value of 'd' in last level
+                                f[d_1][d_2][d_3] = 25 # re-define that value in the same position but in 'f'
 
                         elif d[d_1][d_2][d_3] > d_mean and d[d_1][d_2][d_3] < d_max:
                                 f[d_1][d_2][d_3] = 75
@@ -163,7 +214,7 @@ for d_1 in range(len(d)):
                         elif d[d_1][d_2][d_3] == d_max:
                                 f[d_1][d_2][d_3] = 100
 
-print("")
+print("METHOD 3:", f)
 
 """
 #17. Print d and f. Do you have your expected f?
