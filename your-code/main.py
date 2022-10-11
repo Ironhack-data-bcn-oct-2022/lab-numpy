@@ -126,9 +126,6 @@ for i1 in range(0,len(d)):
 print(f)
 
 
-
-
-
 """
 #17. Print d and f. Do you have your expected f?
 For instance, if your d is:
@@ -167,3 +164,21 @@ array([[[ 'D',  'D',  'D',  'B',  'D'],
         [ 'B',  'D',   'A',  'D', 'D']]])
 Again, you don't need Numpy in this question.
 """
+print(" ")
+print("Question 18")
+
+g = np.empty((2,3,5), dtype="object")
+for i1 in range(len(d)):
+        for i2 in range(len(d[i1])):
+                for i3 in range(len(d[i1][i2])):
+                        if d[i1][i2][i3]>d_min and d[i1][i2][i3]<d_mean:
+                                g[i1][i2][i3]='B'
+                        elif d[i1][i2][i3] == d_mean:
+                                g[i1][i2][i3]='C'
+                        elif d[i1][i2][i3] == d_min:
+                                g[i1][i2][i3]='A'
+                        elif d[i1][i2][i3] == d_max:
+                                g[i1][i2][i3]='E'
+                        elif d[i1][i2][i3] > d_mean and d[i1][i2][i3] < d_max:
+                                g[i1][i2][i3] = 'D'
+print(g)
