@@ -140,3 +140,6 @@ for fr in d:
                         elif th == d_max:
                                  f2[(fr_in-1)][(sd_in-1)][(th_in-1)] = "E"
 print(f2)
+f3 = np.empty([2,3,5]).astype('str')
+f3 = np.where((d < d_mean) & (d > d_min), "D", np.where((d > d_mean) & (d < d_max), "B", np.where(d == d_mean, "C", np.where(d == d_min, "A", "E"))))
+print(f3)
