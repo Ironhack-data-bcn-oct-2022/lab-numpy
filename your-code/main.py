@@ -1,68 +1,89 @@
 #1. Import the NUMPY package under the name np.
-
-
-
+from turtle import shapesize
+import numpy as np
+print('hi')
 #2. Print the NUMPY version and the configuration.
+print(np.version.version)
 
-
-
+print(np.show_config())
 #3. Generate a 2x3x5 3-dimensional array with random values. Assign the array to variable "a"
 # Challenge: there are at least three easy ways that use numpy to generate random arrays. How many ways can you find?
 
-
+a = np.random.random((2, 3, 5))
+print(a.shape)
+print(a.ndim)
 
 #4. Print a.
+print(a)
 
 
 
 #5. Create a 5x2x3 3-dimensional array with all values equaling 1.
 #Assign the array to variable "b"
+b= np.ones((5, 2, 3))
 
-
+  
 
 #6. Print b.
-
+print(b)
 
 
 #7. Do a and b have the same size? How do you prove that in Python code?
-
+a.size==b.size
 
 
 
 #8. Are you able to add a and b? Why or why not?
 
+#no, cause they have different shapes
+
+
+
 
 
 #9. Transpose b so that it has the same structure of a (i.e. become a 2x3x5 array). Assign the transposed array to varialbe "c".
-
-
+#5=0, 2=1, 3=2=b
+#2x3x5=a
+c = np.transpose(b,(1,2,0))
 
 #10. Try to add a and c. Now it should work. Assign the sum to varialbe "d". But why does it work now?
 
-
-
+d=a+c
+#Cause they have the same shape
 #11. Print a and d. Notice the difference and relation of the two array in terms of the values? Explain.
 
-
+print(a)
+print(d)
+#D has 1+ because is the sum of a np.one and a
 
 
 #12. Multiply a and c. Assign the result to e.
+e=a*c
+print(e)
 
 
 
 #13. Does e equal to a? Why or why not?
+e==a
+#No, because 'a' is a subarray of 'e'
 
 
 
 
 #14. Identify the max, min, and mean values in d. Assign those values to variables "d_max", "d_min", and "d_mean"
 
-
+d_max=d.max()
+print(d_max)
+d_min=d.min()
+print(d_min)
+d_mean=d.mean()
+print(d_mean)
 
 
 #15. Now we want to label the values in d. First create an empty array "f" with the same shape (i.e. 2x3x5) as d using `np.empty`.
 
-
+f=np.empty((2,3,5))
+print(f)
 
 
 """
@@ -73,7 +94,35 @@ Assign 0 to the corresponding value(s) in f for d_min in d.
 Assign 100 to the corresponding value(s) in f for d_max in d.
 In the end, f should have only the following values: 0, 25, 50, 75, and 100.
 Note: you don't have to use Numpy in this question.
+
 """
+print(d)
+print(d_max)
+print(d_min)
+print(d_mean)
+
+
+for index,block in enumerate(d):
+        for index1,row in enumerate(block):
+                for index2,element in enumerate(row):
+                        if element>d_min and element<d_mean:
+                                f[index][index1][index2]=25
+                        elif element>d_mean and element<d_max:
+                                f[index][index1][index2]=75
+                        elif element==d_mean:
+                                f[index][index1][index2]=50
+                        elif element==d_min:
+                                f[index][index1][index2]=0
+                        elif element==d_max:
+                                f[index][index1][index2]=100
+
+                               
+
+
+
+        
+
+
 
 
 
@@ -97,6 +146,8 @@ array([[[ 75.,  75.,  75.,  25.,  75.],
        [[ 25.,  25.,  25.,  25., 100.],
         [ 75.,  75.,  75.,  75.,  75.],
         [ 25.,  75.,   0.,  75.,  75.]]])
+print(d)
+print(f)
 """
 
 
